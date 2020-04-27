@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const shell = require('shelljs');
 
 const containerContent = ({ absolute }) =>
   `
@@ -46,9 +47,11 @@ const com = (workingPath, COM, { absolute }) => {
   const containerPath = path.resolve(comPath, 'container.js');
   if (!fs.existsSync(containerPath)) {
     fs.writeFileSync(containerPath, containerContent({ absolute }), 'utf8');
+    shell.exec(`git add ${containerPath.replace(' ', '\\ ')}`);
   }
   if (!fs.existsSync(indexPath)) {
     fs.writeFileSync(indexPath, indexContent({ COM }), 'utf8');
+    shell.exec(`git add ${indexPath.replace(' ', '\\ ')}`);
   }
 };
 
