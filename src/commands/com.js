@@ -30,7 +30,15 @@ export default container(${COM});
 `.trim();
 
 const com = (workingPath, COM, { absolute }) => {
-  const comPath = path.resolve(workingPath, COM);
+  let cwd = workingPath;
+  const currentFolder = path.basename(workingPath);
+  if (currentFolder.indexOf('@') === 0) {
+    cwd = path.resolve(cwd, 'components');
+    if (!fs.existsSync(cwd)) {
+      fs.mkdirSync(cwd);
+    }
+  }
+  const comPath = path.resolve(cwd, COM);
   if (!fs.existsSync(comPath)) {
     fs.mkdirSync(comPath);
   }
@@ -47,6 +55,6 @@ const com = (workingPath, COM, { absolute }) => {
 module.exports = (COMs, opts) => {
   const cwd = process.cwd();
   COMs.forEach(COM => {
-    com(path.resolve(cwd), COM, opts);
+    com(cwd, COM, opts);
   });
 };
