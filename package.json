@@ -1,0 +1,40 @@
+{
+  "name": "react-cli",
+  "version": "1.0.0",
+  "private": true,
+  "bin": {
+    "re": "bin/re"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "NODE_ENV=production lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js}": [
+      "pretty-quick --staged",
+      "npm run lint",
+      "git add"
+    ]
+  },
+  "scripts": {
+    "lint": "eslint src/ --fix"
+  },
+  "devDependencies": {
+    "eslint": "^5.15.3",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.0.1",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.5",
+    "prettier": "^1.16.4",
+    "pretty-quick": "^1.10.0"
+  },
+  "dependencies": {
+    "backup": "./",
+    "commander": "^5.0.0",
+    "dotenv": "^7.0.0",
+    "shelljs": "^0.8.3"
+  }
+}
