@@ -1,24 +1,12 @@
 const { program } = require('commander');
-const max = require('./commands/max');
-const remove = require('./commands/remove');
+const com = require('./commands/com');
 
 module.exports = function cli(input) {
   program
-    .command('max')
-    .description('Find the folder/file max path')
-    .option(
-      '-s, --skip <file/folder>',
-      'Skip file/folder',
-      (v, p) => [...p, v],
-      []
-    )
-    .action(max);
-
-  program
-    .command('rm <dir>')
-    .description('Remove a particular folder/file')
-    .option('-r, --recursive', 'Remove recursively')
-    .action(remove);
+    .command('com <COMs...>')
+    .description('Create a Component')
+    .option('-a, --absolute', 'import module @ as absolute module')
+    .action(com);
 
   program.parse(input);
 };
