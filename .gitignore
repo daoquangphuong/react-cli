@@ -8,7 +8,7 @@ node_modules
 .DS_Store
 
 # config
-/src/configs/config.json
+/src/config/config.json
 
 npm-debug.log*
 yarn-debug.log*
