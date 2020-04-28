@@ -3,7 +3,7 @@ const fs = require('fs');
 const shell = require('shelljs');
 
 const containerContent = ({ absolute }) =>
-  `
+  `${`
 import { compose, hoc } from '${absolute ? '../../../@' : '@'}';
 
 const container = compose(
@@ -15,10 +15,10 @@ const container = compose(
 );
 
 export default container;
-`.trim();
+`.trim()}\n`;
 
 const indexContent = ({ COM }) =>
-  `
+  `${`
 import React from 'react';
 import container from './container';
 
@@ -28,7 +28,7 @@ const ${COM} = props => {
 };
 
 export default container(${COM});
-`.trim();
+`.trim()}\n`;
 
 const com = (workingPath, COM, { absolute }) => {
   let cwd = workingPath;
