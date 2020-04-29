@@ -1,8 +1,14 @@
 const { program } = require('commander');
+const fix = require('./commands/fix');
 const com = require('./commands/com');
 const store = require('./commands/store');
 
 module.exports = function cli(input) {
+  program
+    .command('fix')
+    .description('Fix')
+    .action(fix);
+
   program
     .command('com <COMs...>')
     .description('Create a Component')
