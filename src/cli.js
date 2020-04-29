@@ -2,6 +2,7 @@ const { program } = require('commander');
 const fix = require('./commands/fix');
 const com = require('./commands/com');
 const store = require('./commands/store');
+const action = require('./commands/action');
 
 module.exports = function cli(input) {
   program
@@ -20,6 +21,12 @@ module.exports = function cli(input) {
     .description('Create a Component')
     .option('-a, --absolute', 'import module @ as absolute module')
     .action(store);
+
+  program
+    .command('action <ACTIONs...>')
+    .description('Create an Action')
+    .option('-a, --absolute', 'import module @ as absolute module')
+    .action(action);
 
   program.parse(input);
 };
