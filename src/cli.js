@@ -12,19 +12,19 @@ module.exports = function cli(input) {
 
   program
     .command('com <COMs...>')
-    .description('Create a Component')
+    .description('Create Components')
     .option('-a, --absolute', 'import module @ as absolute module')
     .action(com);
 
   program
     .command('store')
-    .description('Create a Component')
+    .description('Create Store')
     .option('-a, --absolute', 'import module @ as absolute module')
     .action(store);
 
   program
     .command('action <ACTIONs...>')
-    .description('Create an Action')
+    .description('Create Actions')
     .option('-a, --absolute', 'import module @ as absolute module')
     .action(action);
 
