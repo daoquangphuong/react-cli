@@ -30,10 +30,10 @@ const fix = workingPath => {
       if (componentName === currentDir) {
         return;
       }
-      let newFileContent = fileContent;
-      while (newFileContent.indexOf(componentName) > -1) {
-        newFileContent = newFileContent.replace(componentName, currentDir);
-      }
+      const newFileContent = fileContent.replace(
+        new RegExp(`${componentName}`, 'g'),
+        currentDir
+      );
       fs.writeFileSync(itemPath, newFileContent, 'utf8');
       shell.exec(`git add ${itemPath.replace(' ', '\\ ')}`);
     });
