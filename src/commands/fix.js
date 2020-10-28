@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const shell = require('shelljs');
 
-const fix = workingPath => {
+const fix = (workingPath, { store }) => {
   const cwd = workingPath;
 
   const check = where => {
@@ -27,7 +27,7 @@ const fix = workingPath => {
       const storageNameMatch = fileContent.match(/createStore\((.+?)\)/);
       let newFileContent = fileContent;
 
-      if (storageNameMatch && currentDir === 'stores') {
+      if (storageNameMatch && currentDir === 'stores' && store) {
         const nameMatchList = newFileContent.match(
           /const\s+\$(.+?)\s+=\s+createStore\((.+?)\)/g
         );
@@ -36,7 +36,7 @@ const fix = workingPath => {
 
         nameMatchList.forEach(text => {
           const nameMatch = text.match(
-            /const\s+\$(.+?)\s+=\s+createStore\((.+?)\)/
+            /const\s+\$(.+?)\s+=\s+createStore\((['"].+?['"])[,)]/
           );
 
           const moduleName =
