@@ -8,7 +8,8 @@ module.exports = function cli(input) {
   program
     .command('fix')
     .description('Fix')
-    .option('-s, --store', 'fix include store')
+    .option('-c, --com', 'Fix Component')
+    .option('-s, --store', 'Fix Store')
     .action(fix);
 
   program

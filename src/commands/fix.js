@@ -2,8 +2,12 @@ const path = require('path');
 const fs = require('fs');
 const shell = require('shelljs');
 
-const fix = (workingPath, { store }) => {
+const fix = (workingPath, { com, store } = {}) => {
   const cwd = workingPath;
+
+  if (!com && !store) {
+    throw new Error('Missing type = "com" or "store"');
+  }
 
   const check = where => {
     const items = fs.readdirSync(where);
@@ -50,7 +54,10 @@ const fix = (workingPath, { store }) => {
           const storeName = `${firstComma}${moduleName}:${nameMatch[1]}${lastComma}`;
 
           if (storeName !== nameMatch[2]) {
-            newFileContent = newFileContent.replace(nameMatch[2], storeName);
+            newFileContent = newFileContent.replace(
+              nameMatch[0].substring(0, nameMatch[0].length - 1),
+              `const $${nameMatch[1]} = createStore(${storeName}`
+            );
           }
         });
 
@@ -62,7 +69,7 @@ const fix = (workingPath, { store }) => {
         return;
       }
       const componentNameMatch = fileContent.match(/container\((.+?)\)/);
-      if (!componentNameMatch) {
+      if (!componentNameMatch || !com) {
         return;
       }
       const componentName = componentNameMatch[1];
